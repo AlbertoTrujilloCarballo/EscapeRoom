@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI text;
     public int score = 0;
     private GameObject counterObject = null;
-
+    [SerializeField] AudioSource audioSource;
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -68,13 +68,19 @@ public class GameManager : MonoBehaviour
         Debug.Log("TOTAL: "+ placedObjects.Count);
         Debug.Log(text.text);
             text.text = score + "/" + placedObjects.Count; 
+        
     }
 
     public void IncrementScore()
     {
         Debug.Log("INCREMENTANDO: " + score);
         score ++;
+        audioSource.Play();
         UpdateCounter();
+        if (score == placedObjects.Count)
+        {
+            SceneManager.LoadScene("Win");
+        }
     }
 
 }
